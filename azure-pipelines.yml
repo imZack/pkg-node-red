@@ -19,7 +19,8 @@ jobs:
           -v `pwd`:/app \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
-          -w /app "node@${IMAGE}" bash ./build.sh
+          -w /app \
+          "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
       env:
         IMAGE: 'node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
@@ -39,7 +40,8 @@ jobs:
           -v `pwd`:/app \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
-          -w /app "${IMAGE}" bash ./build.sh
+          -w /app \
+          "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
       env:
         IMAGE: 'node:lts'
