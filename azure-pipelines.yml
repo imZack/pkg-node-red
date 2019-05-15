@@ -1,0 +1,19 @@
+resources:
+- repo: self
+trigger:
+  branches:
+    include:
+    - '*'
+
+jobs:
+- job: LinuxARMv7
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+    - script: |
+        docker run --rm --privileged hypriot/qemu-register
+      displayName: 'Prepare cross build'
+
+    - script: |
+        docker run --rm node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9 -e 'console.log(`${process.arch}`)'
+      displayName: 'Run a multi-line script'
