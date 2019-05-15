@@ -15,5 +15,17 @@ jobs:
       displayName: 'Prepare cross build'
 
     - script: |
-        docker run --rm node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9 node -e 'console.log(`${process.arch}`)'
+        docker run --rm \
+          -v `pwd`:/app \
+          -e NODERED_VERSION=${NODERED_VERSION}
+          -e TARGET=${TARGET}
+          -w /app "node@${IMAGE}" bash ./build.sh
       displayName: 'Run a multi-line script'
+      env:
+        IMAGE: 'sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
+        NODERED_VERSION: '0.20.5'
+        TARGET: 'node10-linux-armv7'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'LinuxARMv7'
+        targetPath: 'release'
