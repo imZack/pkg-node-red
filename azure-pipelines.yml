@@ -17,8 +17,8 @@ jobs:
     - script: |
         docker run --rm \
           -v `pwd`:/app \
-          -e NODERED_VERSION=${NODERED_VERSION}
-          -e TARGET=${TARGET}
+          -e NODERED_VERSION=${NODERED_VERSION} \
+          -e TARGET=${TARGET} \
           -w /app "node@${IMAGE}" bash ./build.sh
       displayName: 'Run a multi-line script'
       env:
