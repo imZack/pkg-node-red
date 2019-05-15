@@ -52,6 +52,27 @@ jobs:
         artifactName: 'LinuxAMD64'
         targetPath: 'release/node-red'
 
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.14'
+  steps:
+    - task: NodeTool@0
+      displayName: Node install
+      inputs:
+        versionSpec: '10.x'
+    - script: |
+        node -v
+        bash ./build.sh
+      displayName: 'Build & Pack'
+      env:
+        IMAGE: 'node:lts'
+        NODERED_VERSION: '0.20.5'
+        TARGET: 'node10-macos-x64'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'macOS'
+        targetPath: 'release/node-red'
+
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
