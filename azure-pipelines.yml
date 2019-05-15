@@ -20,12 +20,49 @@ jobs:
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
           -w /app "node@${IMAGE}" bash ./build.sh
-      displayName: 'Run a multi-line script'
+      displayName: 'Build & Pack'
       env:
-        IMAGE: 'sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
+        IMAGE: 'node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
         NODERED_VERSION: '0.20.5'
         TARGET: 'node10-linux-armv7'
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'LinuxARMv7'
-        targetPath: 'release'
+        targetPath: 'release/node-red'
+
+- job: LinuxAMD64
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    - script: |
+        docker run --rm \
+          -v `pwd`:/app \
+          -e NODERED_VERSION=${NODERED_VERSION} \
+          -e TARGET=${TARGET} \
+          -w /app "${IMAGE}" bash ./build.sh
+      displayName: 'Build & Pack'
+      env:
+        IMAGE: 'node:lts'
+        NODERED_VERSION: '0.20.5'
+        TARGET: 'node10-linux-x64'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'LinuxAMD64'
+        targetPath: 'release/node-red'
+
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+    - script: |
+        node -v
+        bash ./build.sh
+      displayName: 'Build & Pack'
+      env:
+        IMAGE: 'node:lts'
+        NODERED_VERSION: '0.20.5'
+        TARGET: 'node10-win-x64'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'Windows'
+        targetPath: 'release/node-red'
