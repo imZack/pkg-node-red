@@ -7,6 +7,8 @@ uname -a
 npm config set unsafe-perm true
 npm install -g pkg
 npm install "node-red@$NODERED_VERSION"
+pwd
+ls -alh
 node -e "const data = require('./node_modules/node-red/package.json'); data.pkg = { assets: ['./**/*'] }; data.dependencies['node-red-contrib-modbus'] = '4.1.3'; require('fs').writeFileSync('new-package.json', JSON.stringify(data, null, ' '));"
 cp new-package.json node_modules/node-red/package.json
 (
@@ -17,3 +19,5 @@ cp new-package.json node_modules/node-red/package.json
     --output "../../release/node-red" \
     --public .
 )
+
+ls -alh
