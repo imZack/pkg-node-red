@@ -20,4 +20,4 @@ cp new-package.json node_modules/node-red/package.json
     --public .
 )
 
-ls -alh release
+ls -alh "$OUTPUT_DIR"
