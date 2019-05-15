@@ -21,6 +21,7 @@ jobs:
           -v $OUTPUT_DIR \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
+          -e OUTPUT_DIR=${OUTPUT_DIR} \
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
@@ -46,6 +47,7 @@ jobs:
           -v $OUTPUT_DIR \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
+          -e OUTPUT_DIR=${OUTPUT_DIR} \
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
