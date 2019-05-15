@@ -9,11 +9,12 @@ jobs:
 - job: LinuxARMv7
   pool:
     vmImage: 'ubuntu-16.04'
+  workspace:
+    clean: 'all'
   steps:
     - script: |
         docker run --rm --privileged hypriot/qemu-register
       displayName: 'Prepare cross build'
-
     - script: |
         docker run --rm \
           -v `pwd`:/app \
@@ -26,14 +27,17 @@ jobs:
         IMAGE: 'node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
         NODERED_VERSION: '0.20.5'
         TARGET: 'node10-linux-armv7'
+        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'LinuxARMv7'
-        targetPath: 'release/node-red'
+        targetPath: $(Build.ArtifactStagingDirectory)
 
 - job: LinuxAMD64
   pool:
     vmImage: 'ubuntu-16.04'
+  workspace:
+    clean: 'all'
   steps:
     - script: |
         docker run --rm \
@@ -47,14 +51,17 @@ jobs:
         IMAGE: 'node:lts'
         NODERED_VERSION: '0.20.5'
         TARGET: 'node10-linux-x64'
+        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'LinuxAMD64'
-        targetPath: 'release/node-red'
+        targetPath: $(Build.ArtifactStagingDirectory)
 
 - job: macOS
   pool:
     vmImage: 'macOS-10.14'
+  workspace:
+    clean: 'all'
   steps:
     - task: NodeTool@0
       displayName: Node install
@@ -68,14 +75,17 @@ jobs:
         IMAGE: 'node:lts'
         NODERED_VERSION: '0.20.5'
         TARGET: 'node10-macos-x64'
+        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'macOS'
-        targetPath: 'release/node-red'
+        targetPath: $(Build.ArtifactStagingDirectory)
 
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
+  workspace:
+    clean: 'all'
   steps:
     - script: |
         node -v
@@ -85,7 +95,8 @@ jobs:
         IMAGE: 'node:lts'
         NODERED_VERSION: '0.20.5'
         TARGET: 'node10-win-x64'
+        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'Windows'
-        targetPath: 'release/node-red'
+        targetPath: $(Build.ArtifactStagingDirectory)
