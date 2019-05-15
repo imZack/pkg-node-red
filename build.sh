@@ -6,6 +6,7 @@ uname -a
 
 npm config set unsafe-perm true
 npm install -g pkg
+npm init -y
 npm install "node-red@$NODERED_VERSION"
 pwd
 ls -alh
