@@ -14,5 +14,6 @@ cp new-package.json node_modules/node-red/package.json
   npm install --production
   pkg \
     --targets "$TARGET" \
-    --out-path ../../release --public .
+    --output "../../release/node-red" \
+    --public .
 )
