@@ -18,6 +18,7 @@ jobs:
     - script: |
         docker run --rm \
           -v `pwd`:/app \
+          -v $OUTPUT_DIR \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
           -w /app \
@@ -42,6 +43,7 @@ jobs:
     - script: |
         docker run --rm \
           -v `pwd`:/app \
+          -v $OUTPUT_DIR \
           -e NODERED_VERSION=${NODERED_VERSION} \
           -e TARGET=${TARGET} \
           -w /app \
