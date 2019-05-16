@@ -34,7 +34,6 @@ jobs:
       inputs:
         artifactName: 'LinuxARMv7'
         targetPath: $(Build.ArtifactStagingDirectory)
-    - template: .azure-pipelines/github-release.yml
 
 - job: LinuxAMD64
   pool:
