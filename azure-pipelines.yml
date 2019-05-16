@@ -34,6 +34,7 @@ jobs:
       inputs:
         artifactName: 'LinuxARMv7'
         targetPath: $(Build.ArtifactStagingDirectory)
+    - template: .azure-pipelines/github-release.yml
 
 - job: LinuxAMD64
   pool:
@@ -60,6 +61,7 @@ jobs:
       inputs:
         artifactName: 'LinuxAMD64'
         targetPath: $(Build.ArtifactStagingDirectory)
+    - template: .azure-pipelines/github-release.yml
 
 - job: macOS
   pool:
@@ -84,6 +86,7 @@ jobs:
       inputs:
         artifactName: 'macOS'
         targetPath: $(Build.ArtifactStagingDirectory)
+    - template: .azure-pipelines/github-release.yml
 
 - job: Windows
   pool:
@@ -104,3 +107,4 @@ jobs:
       inputs:
         artifactName: 'Windows'
         targetPath: $(Build.ArtifactStagingDirectory)
+    - template: .azure-pipelines/github-release.yml
