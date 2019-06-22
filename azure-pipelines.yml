@@ -25,9 +25,9 @@ jobs:
         docker run --rm \
           -v `pwd`:/app \
           -v $OUTPUT_DIR:$OUTPUT_DIR \
-          -e NODERED_VERSION=${NODERED_VERSION} \
-          -e TARGET=${TARGET} \
-          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -e NODERED_VERSION \
+          -e TARGET \
+          -e OUTPUT_DIR \
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
@@ -35,9 +35,10 @@ jobs:
         docker run --rm \
           -v `pwd`:/app \
           -v $OUTPUT_DIR:$OUTPUT_DIR \
-          -e NODERED_VERSION=${NODERED_VERSION} \
-          -e TARGET=${TARGET} \
-          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -e NODERED_VERSION \
+          -e TARGET \
+          -e OUTPUT_DIR \
+          -e ARCH \
           -w /app \
           "${IMAGE}" bash ./tp-userprog.sh
       displayName: 'Create ThingsPro User Program'
@@ -61,9 +62,9 @@ jobs:
         docker run --rm \
           -v `pwd`:/app \
           -v $OUTPUT_DIR:$OUTPUT_DIR \
-          -e NODERED_VERSION=${NODERED_VERSION} \
-          -e TARGET=${TARGET} \
-          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -e NODERED_VERSION \
+          -e TARGET \
+          -e OUTPUT_DIR \
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
@@ -71,9 +72,10 @@ jobs:
         docker run --rm \
           -v `pwd`:/app \
           -v $OUTPUT_DIR:$OUTPUT_DIR \
-          -e NODERED_VERSION=${NODERED_VERSION} \
-          -e TARGET=${TARGET} \
-          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -e NODERED_VERSION \
+          -e TARGET \
+          -e OUTPUT_DIR \
+          -e ARCH \
           -w /app \
           "${IMAGE}" bash ./tp-userprog.sh
       displayName: 'Create ThingsPro User Program'
