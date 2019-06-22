@@ -11,6 +11,12 @@ jobs:
     vmImage: 'ubuntu-16.04'
   workspace:
     clean: 'all'
+  variables:
+    IMAGE: 'node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
+    NODERED_VERSION: '0.20.5'
+    TARGET: 'node10-linux-armv7'
+    ARCH: 'armv7'
+    OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
   steps:
     - script: |
         docker run --rm --privileged hypriot/qemu-register
@@ -25,11 +31,16 @@ jobs:
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
-      env:
-        IMAGE: 'node@sha256:68cbc06164bb8866a809ceb4e112c3632e60a2606ba9b12ceb469219949363d9'
-        NODERED_VERSION: '0.20.5'
-        TARGET: 'node10-linux-armv7'
-        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
+    - script: |
+        docker run --rm \
+          -v `pwd`:/app \
+          -v $OUTPUT_DIR:$OUTPUT_DIR \
+          -e NODERED_VERSION=${NODERED_VERSION} \
+          -e TARGET=${TARGET} \
+          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -w /app \
+          "${IMAGE}" bash ./tp-userprog.sh
+      displayName: 'Create ThingsPro User Program'
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'LinuxARMv7'
@@ -40,6 +51,12 @@ jobs:
     vmImage: 'ubuntu-16.04'
   workspace:
     clean: 'all'
+  variables:
+    IMAGE: 'node:lts'
+    NODERED_VERSION: '0.20.5'
+    TARGET: 'node10-linux-x64'
+    ARCH: 'x64'
+    OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
   steps:
     - script: |
         docker run --rm \
@@ -51,11 +68,16 @@ jobs:
           -w /app \
           "${IMAGE}" bash ./build.sh
       displayName: 'Build & Pack'
-      env:
-        IMAGE: 'node:lts'
-        NODERED_VERSION: '0.20.5'
-        TARGET: 'node10-linux-x64'
-        OUTPUT_DIR: $(Build.ArtifactStagingDirectory)
+    - script: |
+        docker run --rm \
+          -v `pwd`:/app \
+          -v $OUTPUT_DIR:$OUTPUT_DIR \
+          -e NODERED_VERSION=${NODERED_VERSION} \
+          -e TARGET=${TARGET} \
+          -e OUTPUT_DIR=${OUTPUT_DIR} \
+          -w /app \
+          "${IMAGE}" bash ./tp-userprog.sh
+      displayName: 'Create ThingsPro User Program'
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'LinuxAMD64'
